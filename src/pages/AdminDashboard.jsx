@@ -19,27 +19,30 @@ function AdminDashboard() {
     fetchRides();
   }, []);
 
-  // PATCH status to "Completed"
-  const markCompleted = async (rideId) => {
-    try {
-      const res = await axios.patch(`http://localhost:4000/api/rides/${rideId}`, {
-        status: "Completed"
-      });
-
-      // Refresh the ride list
-      setRides((prev) =>
-        prev.map((ride) =>
-          ride._id === rideId ? { ...ride, status: "Completed" } : ride
-        )
-      );
-    } catch (err) {
-      console.error("Error updating status:", err);
-    }
-  };
-
+  // Toggle ride status (mark as completed or undo)"
+  const toggleStatus = async (rideId, currentStatus) => {
+      const newStatus = currentStatus === "Completed" ? "Scheduled" : "Completed";
+      
+      // Confirm prompt before changing the status in the database
+      const confirmAction = window.confirm(`Are you sure you want to mark this ride as ${newStatus.toLowerCase()}?`);
+      if (!confirmAction) return; // if admin cancels, do nothing
+      
+      try {
+        const res = await axios.patch(`http://localhost:4000/api/rides/${rideId}`, { status: newStatus });
+        
+        // Update the status in the UI
+        setRides((prev) =>
+          prev.map((ride) => (ride._id === rideId ? { ...ride, status: newStatus } : ride))
+        );
+      } catch (err) {
+        console.error(err);
+        setError("Failed to update ride status.");
+      }
+    };
+    
   return (
     <div style={{ padding: "2rem", maxWidth: "1000px", margin: "0 auto" }}>
-      <h2 style={{ marginBottom: "1rem" }}>Admin Dashboard</h2>
+      <h2>Admin Dashboard</h2>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
@@ -68,21 +71,18 @@ function AdminDashboard() {
                   {ride.status}
                 </td>
                 <td style={cell}>
-                  {ride.status !== "Completed" && (
                     <button
-                      onClick={() => markCompleted(ride._id)}
+                      onClick={() => toggleStatus(ride._id, ride.status)}
                       style={{
                         padding: "0.4rem 0.75rem",
-                        backgroundColor: "#DAA520",
+                        backgroundColor: ride.status === "Completed" ? "red" : "#DAA520",
                         color: "#fff",
                         border: "none",
                         borderRadius: "4px",
                         cursor: "pointer"
                       }}
-                    >
-                      Mark as Completed
+                    > {ride.status === "Completed" ? "Undo" : "Mark as Completed"}
                     </button>
-                  )}
                 </td>
               </tr>
             ))}
