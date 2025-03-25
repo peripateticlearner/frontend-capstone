@@ -19,16 +19,26 @@ function AdminDashboard() {
     fetchRides();
   }, []);
 
-  // Toggle ride status (mark as completed or undo)"
+  // Function to update ride status
   const toggleStatus = async (rideId, currentStatus) => {
-      const newStatus = currentStatus === "Completed" ? "Scheduled" : "Completed";
+      let newStatus;
+      
+      if (currentStatus === "Scheduled") {
+        newStatus = "In Progress";
+      } else if (currentStatus === "In Progress") {
+        newStatus = "Completed";
+      } else if (currentStatus === "Completed") {
+        newStatus = "Scheduled"; // In case admin wants to undo
+      } else {
+        return;
+      }
       
       // Confirm prompt before changing the status in the database
-      const confirmAction = window.confirm(`Are you sure you want to mark this ride as ${newStatus.toLowerCase()}?`);
+      const confirmAction = window.confirm(`Are you sure you want to mark this ride as ${newStatus}?`);
       if (!confirmAction) return; // if admin cancels, do nothing
       
       try {
-        const res = await axios.patch(`http://localhost:4000/api/rides/${rideId}`, { status: newStatus });
+        await axios.patch(`http://localhost:4000/api/rides/${rideId}`, { status: newStatus });
         
         // Update the status in the UI
         setRides((prev) =>
@@ -67,7 +77,7 @@ function AdminDashboard() {
                 <td style={cell}>{ride.dropoffLocation}</td>
                 <td style={cell}>{new Date(ride.scheduledTime).toLocaleString()}</td>
                 <td style={cell}>{ride.contactInfo}</td>
-                <td style={{ ...cell, color: ride.status === "Completed" ? "green" : "#DAA520", fontWeight: "bold" }}>
+                <td style={{ ...cell, color: getStatusColor(ride.status), fontWeight: "bold" }}>
                   {ride.status}
                 </td>
                 <td style={cell}>
@@ -75,13 +85,15 @@ function AdminDashboard() {
                       onClick={() => toggleStatus(ride._id, ride.status)}
                       style={{
                         padding: "0.4rem 0.75rem",
-                        backgroundColor: ride.status === "Completed" ? "red" : "#DAA520",
+                        backgroundColor: getStatusButtonColor(ride.status),
                         color: "#fff",
                         border: "none",
                         borderRadius: "4px",
-                        cursor: "pointer"
+                        cursor: "pointer",
+                        marginRight: "0.5rem",
                       }}
-                    > {ride.status === "Completed" ? "Undo" : "Mark as Completed"}
+                    > 
+                    {getStatusButtonText(ride.status)}
                     </button>
                 </td>
               </tr>
@@ -92,6 +104,45 @@ function AdminDashboard() {
     </div>
   );
 }
+
+// Function to determine the next status text for the button
+const getStatusButtonText = (status) => {
+  if (status === "Scheduled") {
+    return "Start Ride";
+  } else if (status === "In Progress") {
+    return "Complete Ride";
+  } else if (status === "Completed") {
+    return "Undo";
+  } else {
+    return "Unknown";
+  }
+};
+
+// Function to determine button color based on status
+const getStatusButtonColor = (status) => {
+  if (status === "Scheduled") {
+    return "#DAA520"; // Goldenrod
+  } else if (status === "In Progress") {
+    return "#blue";
+  } else if (status === "Completed") {
+    return "#red";
+  } else {
+    return "#000";
+  }
+};
+
+// Function to determine status colors in the table
+const getStatusColor = (status) => {
+  if (status === "Scheduled") {
+    return "#DAA520"; // Goldenrod
+  } else if (status === "In Progress") {
+    return "#blue";
+  } else if (status === "Completed") {
+    return "#green";
+  } else {
+    return "#000";
+  }
+};
 
 // Shared cell style
 const cell = {
