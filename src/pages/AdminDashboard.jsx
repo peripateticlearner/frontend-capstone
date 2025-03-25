@@ -123,11 +123,11 @@ const getStatusButtonColor = (status) => {
   if (status === "Scheduled") {
     return "#DAA520"; // Goldenrod
   } else if (status === "In Progress") {
-    return "#blue";
+    return "blue";
   } else if (status === "Completed") {
-    return "#red";
+    return "red";
   } else {
-    return "#000";
+    return "black";
   }
 };
 
@@ -136,11 +136,11 @@ const getStatusColor = (status) => {
   if (status === "Scheduled") {
     return "#DAA520"; // Goldenrod
   } else if (status === "In Progress") {
-    return "#blue";
+    return "blue";
   } else if (status === "Completed") {
-    return "#green";
+    return "green";
   } else {
-    return "#000";
+    return "#black";
   }
 };
 
