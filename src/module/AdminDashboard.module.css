@@ -1,0 +1,56 @@
+/* Admin Dashboard Container */
+.container {
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Table */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Cells */
+.cell {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+/* Status Colors */
+.statusScheduled {
+    color: #DAA520;
+}
+
+.statusInProgress {
+    color: blue;
+}
+
+.statusCompleted {
+    color: green;
+}
+
+/* Buttons */
+.button {
+    padding: 0.4rem 0.75rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    color: white;
+}
+
+.buttonScheduled {
+    background-color: #DAA520;
+}
+
+.buttonInProgress {
+    background-color: blue;
+}
+
+.buttonCompleted {
+    background-color: red;
+}
