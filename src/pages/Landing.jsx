@@ -1,27 +1,24 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import Landing from "./pages/Landing";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import BookRide from "./pages/BookRide";
-import UserDashboard from "./pages/UserDashboard";
-import AdminDashboard from "./pages/AdminDashboard";
-import NavBar from "./pages/NavBar";
+import { Link } from "react-router-dom";
 
-function App() {
+function Landing() {
   return (
-    <>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/book" element={<BookRide />} />
-        <Route path="/dashboard" element={<UserDashboard />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </>
+    <div style={{
+      textAlign: "center",
+      padding: "4rem",
+      backgroundColor: "#f8f9fa"
+    }}>
+      <h1>Atlas Taxi Service</h1>
+      <p>Reliable and professional taxi service for your transportation needs.</p>
+      <div style={{ marginTop: "2rem" }}>
+        <Link to="/signup">
+          <button style={{ marginRight: "1rem" }}>Sign Up</button>
+        </Link>
+        <Link to="/login">
+          <button>Login</button>
+        </Link>
+      </div>
+    </div>
   );
 }
 
-export default App;
+export default Landing;
