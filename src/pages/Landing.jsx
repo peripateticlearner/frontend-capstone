@@ -6,13 +6,8 @@ import BookRide from "./pages/BookRide";
 import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import NavBar from "./pages/NavBar";
-import { useEffect } from "react";
 
 function App() {
-  useEffect(() => {
-    document.title = "Atlas Taxi - Ride with Ease";
-  }, []);
-
   return (
     <>
       <NavBar />
