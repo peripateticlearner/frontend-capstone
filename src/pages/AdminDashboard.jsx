@@ -65,7 +65,7 @@ function AdminDashboard() {
     if (!confirmAction) return;
 
     try {
-      await axios.patch(`${BASE_URL}api/rides/${rideId}`, {
+      await axios.patch(`${BASE_URL}/api/rides/${rideId}`, {
         status: newStatus,
       });
 
