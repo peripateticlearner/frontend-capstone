@@ -1,0 +1,74 @@
+
+.landingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f8ff;
+    font-family: sans-serif;
+}
+
+.contentContainer {
+    text-align: left;
+    padding: 2rem;
+    flex: 1;
+    max-width: 400px;
+}
+
+.mainTitle {
+    font-size: 2.7rem; 
+    font-weight: 600; 
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 2rem;
+    font-style: italic; 
+}
+
+.buttonContainer {
+    margin-top: 2rem;
+}
+
+.signupButton {
+    background-color: #007bff;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-right: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.signupButton:hover {
+    background-color: #0056b3; 
+}
+
+.loginButton {
+    background-color: white;
+    color: #007bff;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+.loginButton:hover {
+    background-color: #f0f8ff; 
+    color: #0056b3;
+}
+
+.taxiImage {
+    max-width: 60%;
+    height: 100%;
+    object-fit: cover;
+}
