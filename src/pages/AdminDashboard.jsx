@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import styles from "../module/AdminDashboard.module.css"
+import styles from "../module/AdminDashboard.module.css";
 
 function AdminDashboard() {
   const [rides, setRides] = useState([]);
+  const [users, setUsers] = useState([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
+    // Fetch all rides from backend
     const fetchRides = async () => {
       try {
         const res = await axios.get("http://localhost:4000/api/rides");
@@ -17,9 +19,22 @@ function AdminDashboard() {
       }
     };
 
+    // Fetch all users from backend
+    const fetchUsers = async () => {
+      try {
+        const res = await axios.get("http://localhost:4000/api/user");
+        setUsers(res.data);
+      } catch (err) {
+        console.error(err);
+        setError("Failed to fetch users.");
+      }
+    };
+
     fetchRides();
+    fetchUsers();
   }, []);
 
+  // Get button text based on ride status
   const getStatusButtonText = (status) => {
     switch (status) {
       case "Scheduled":
@@ -32,30 +47,32 @@ function AdminDashboard() {
         return "Update Status";
     }
   };
-  
-  // Function to update ride status
+
+  // Toggle ride status and update it in the backend
   const toggleStatus = async (rideId, currentStatus) => {
     let newStatus;
-    if (currentStatus === "Scheduled") {
-      newStatus = "In Progress";
-    } else if (currentStatus === "In Progress") {
-      newStatus = "Completed";
-    } else if (currentStatus === "Completed") {
-      newStatus = "Scheduled"; // In case admin wants to undo
-    } else {
-      return;
-    }
 
-    // Confirm prompt before changing the status in the database
-    const confirmAction = window.confirm(`Are you sure you want to mark this ride as ${newStatus}?`);
-    if (!confirmAction) return; // if admin cancels, do nothing
+    if (currentStatus === "Scheduled") newStatus = "In Progress";
+    else if (currentStatus === "In Progress") newStatus = "Completed";
+    else if (currentStatus === "Completed") newStatus = "Scheduled";
+    else return;
+
+    // Confirm admin action
+    const confirmAction = window.confirm(
+      `Are you sure you want to mark this ride as ${newStatus}?`
+    );
+    if (!confirmAction) return;
 
     try {
-      await axios.patch(`http://localhost:4000/api/rides/${rideId}`, { status: newStatus });
+      await axios.patch(`http://localhost:4000/api/rides/${rideId}`, {
+        status: newStatus,
+      });
 
-      // Update the status in the UI
+      // Update UI after successful backend update
       setRides((prev) =>
-        prev.map((ride) => (ride._id === rideId ? { ...ride, status: newStatus } : ride))
+        prev.map((ride) =>
+          ride._id === rideId ? { ...ride, status: newStatus } : ride
+        )
       );
     } catch (err) {
       console.error(err);
@@ -69,10 +86,19 @@ function AdminDashboard() {
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
+      {/* Rides Section */}
+      <h3>Rides</h3>
       {rides.length === 0 ? (
         <p>No rides booked yet.</p>
       ) : (
-        <table style={{ width: "100%", borderCollapse: "collapse", background: "#fff", boxShadow: "0 0 10px rgba(0,0,0,0.1)" }}>
+        <table
+          style={{
+            width: "100%",
+            borderCollapse: "collapse",
+            background: "#fff",
+            boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+          }}
+        >
           <thead style={{ backgroundColor: "#001F3F", color: "#fff" }}>
             <tr>
               <th className={styles.cell}>Pickup</th>
@@ -81,7 +107,6 @@ function AdminDashboard() {
               <th className={styles.cell}>Contact</th>
               <th className={styles.cell}>Status</th>
               <th className={styles.cell}>Actions</th>
-
             </tr>
           </thead>
           <tbody>
@@ -89,17 +114,51 @@ function AdminDashboard() {
               <tr key={ride._id} style={{ backgroundColor: "#f9f9f9" }}>
                 <td className={styles.cell}>{ride.pickupLocation}</td>
                 <td className={styles.cell}>{ride.dropoffLocation}</td>
-                <td className={styles.cell}>{new Date(ride.scheduledTime).toLocaleString()}</td>
+                <td className={styles.cell}>
+                  {new Date(ride.scheduledTime).toLocaleString()}
+                </td>
                 <td className={styles.cell}>{ride.contactInfo}</td>
                 <td className={styles.cell}>{ride.status}</td>
                 <td className={styles.cell}>
                   <button
-                    className={`${styles.button} ${styles[`button${ride.status}`]}`}
+                    className={`${styles.button} ${
+                      styles[`button${ride.status.replace(" ", "")}`]
+                    }`}
                     onClick={() => toggleStatus(ride._id, ride.status)}
                   >
                     {getStatusButtonText(ride.status)}
                   </button>
                 </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      {/* Users Section */}
+      <h3>Users</h3>
+      {users.length === 0 ? (
+        <p>No users registered yet.</p>
+      ) : (
+        <table
+          style={{
+            width: "100%",
+            borderCollapse: "collapse",
+            background: "#fff",
+            boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+          }}
+        >
+          <thead style={{ backgroundColor: "#001F3F", color: "#fff" }}>
+            <tr>
+              <th className={styles.cell}>Username</th>
+              <th className={styles.cell}>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user._id} style={{ backgroundColor: "#f9f9f9" }}>
+                <td className={styles.cell}>{user.username}</td>
+                <td className={styles.cell}>{user.email}</td>
               </tr>
             ))}
           </tbody>
