@@ -2,7 +2,7 @@
 
 This is the **React frontend** for the Atlas Taxi App, built as part of my Capstone Project at Per Scholas. The app allows users to sign up, log in, and book rides, while an admin can view and update ride statuses.
 
-## 🚀 Features
+## Features
 
 - Responsive landing page
 - User registration and login
@@ -11,7 +11,7 @@ This is the **React frontend** for the Atlas Taxi App, built as part of my Capst
 - Admin login and dashboard (bonus feature)
 - Conditional rendering based on user/admin state
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - React
 - React Router
@@ -19,7 +19,7 @@ This is the **React frontend** for the Atlas Taxi App, built as part of my Capst
 - CSS Modules
 - Vite (for fast dev setup)
 
-## 📦 Getting Started
+## Getting Started
 
 ```bash
 cd frontend
