@@ -12,7 +12,7 @@ function AdminDashboard() {
     // Fetch all rides from backend
     const fetchRides = async () => {
       try {
-        const res = await axios.get("${BASE_URL}/api/rides");
+        const res = await axios.get(`${BASE_URL}/api/rides`);
         setRides(res.data);
       } catch (err) {
         console.error(err);
@@ -23,7 +23,7 @@ function AdminDashboard() {
     // Fetch all users from backend
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("${BASE_URL}/api/user");
+        const res = await axios.get(`${BASE_URL}/api/user`);
         setUsers(res.data);
       } catch (err) {
         console.error(err);
