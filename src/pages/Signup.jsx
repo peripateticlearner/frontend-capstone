@@ -24,9 +24,15 @@ function Signup() {
   };
 
   // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  // Frontend validation
+  if (!formData.username || !formData.password || !formData.email) {
+      return setError("Please fill in all fields.");
+  }
+
+  try {
       // Send a POST request to the server
       const response = await axios.post("http://localhost:4000/api/user", formData);
 
@@ -38,15 +44,19 @@ function Signup() {
 
       // Redirect the user to the book page
       setTimeout(() => {
-        navigate("/book");
+          navigate("/book");
       }, 1000);
 
-    } catch (error) {
+  } catch (error) {
       console.error(error);
       // Show an error message
-      setError("Signup failed. Please try again.");
-    }
-  };
+      if (error.response && error.response.data && error.response.data.message) {
+          setError(error.response.data.message); // Extract message from server response
+      } else {
+          setError("Signup failed. Please try again.");
+      }
+  }
+};
 
   return (
     <div style={{ maxWidth: "400px", margin: "0 auto", padding: "2rem" }}>
