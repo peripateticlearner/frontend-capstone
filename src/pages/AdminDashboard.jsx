@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "../module/AdminDashboard.module.css";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function AdminDashboard() {
   const [rides, setRides] = useState([]);
@@ -11,7 +12,7 @@ function AdminDashboard() {
     // Fetch all rides from backend
     const fetchRides = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/api/rides");
+        const res = await axios.get("${BASE_URL}/api/rides");
         setRides(res.data);
       } catch (err) {
         console.error(err);
@@ -22,7 +23,7 @@ function AdminDashboard() {
     // Fetch all users from backend
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/api/user");
+        const res = await axios.get("${BASE_URL}/api/user");
         setUsers(res.data);
       } catch (err) {
         console.error(err);
@@ -64,7 +65,7 @@ function AdminDashboard() {
     if (!confirmAction) return;
 
     try {
-      await axios.patch(`http://localhost:4000/api/rides/${rideId}`, {
+      await axios.patch(`${BASE_URL}api/rides/${rideId}`, {
         status: newStatus,
       });
 
@@ -77,6 +78,17 @@ function AdminDashboard() {
     } catch (err) {
       console.error(err);
       setError("Failed to update ride status.");
+    }
+  };
+  const handleDelete = async (rideId) => {
+    if (!window.confirm("Are you sure you want to delete this ride?")) return;
+
+    try {
+      await axios.delete(`${BASE_URL}/api/rides/${rideId}`);
+      setRides((prev) => prev.filter((ride) => ride._id !== rideId));
+    } catch (err) {
+      console.error("Delete failed:", err.response?.data || err.message);
+      alert("Failed to delete ride.");
     }
   };
 
@@ -121,14 +133,27 @@ function AdminDashboard() {
                 <td className={styles.cell}>{ride.status}</td>
                 <td className={styles.cell}>
                   <button
-                    className={`${styles.button} ${
-                      styles[`button${ride.status.replace(" ", "")}`]
-                    }`}
+                    className={`${styles.button} ${styles[`button${ride.status.replace(" ", "")}`]}`}
                     onClick={() => toggleStatus(ride._id, ride.status)}
                   >
                     {getStatusButtonText(ride.status)}
                   </button>
+                  <button
+                    style={{
+                      marginLeft: "0.5rem",
+                      backgroundColor: "crimson",
+                      color: "white",
+                      border: "none",
+                      padding: "5px 10px",
+                      borderRadius: "4px"
+                    }}
+                    onClick={() => handleDelete(ride._id)}
+                  >
+                    Delete
+                  </button>
                 </td>
+
+
               </tr>
             ))}
           </tbody>
