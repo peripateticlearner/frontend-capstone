@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../module/Signup.module.css";
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
@@ -13,9 +15,15 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Frontend validation
+    if (!formData.email || !formData.password) {
+      setMessage("Please fill in all fields.");
+      return;
+    }
 
     try {
-      const res = await fetch("http://localhost:4000/api/login", {
+      const res = await fetch(`${BASE_URL}/api/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -33,7 +41,7 @@ function Login() {
       setMessage("Login successful! Redirecting...");
       setTimeout(() => navigate("/dashboard"), 1000);
     } catch (err) {
-      console.error(err);
+      console.error("Login error:", err);
       setMessage("Something went wrong. Please try again.");
     }
   };
