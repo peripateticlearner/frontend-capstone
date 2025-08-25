@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL; // Dynamically use the environment variable
+
 function BookRide() {
     // Store ride form values
     const [formData, setFormData] = useState({
@@ -30,7 +32,7 @@ function BookRide() {
         }
 
         try {
-            const res = await axios.post("http://localhost:4000/api/rides", formData);
+            const res = await axios.post(`${BASE_URL}/api/rides`, formData);
 
             setMessage("Ride booked successfully!");
             setFormData({
