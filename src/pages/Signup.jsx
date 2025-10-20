@@ -7,9 +7,10 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL; // Dynamically use the envir
 function Signup() {
   // State to hold form data
   const [formData, setFormData] = useState({
-    username: "",
-    password: "",
+    firstName: "",
+    lastName: "",
     email: "",
+    password: "",
   });
 
   // State to hold error or success message
@@ -30,7 +31,7 @@ const handleSubmit = async (e) => {
   e.preventDefault();
 
   // Frontend validation
-  if (!formData.username || !formData.password || !formData.email) {
+  if (!formData.firstName || !formData.lastName || !formData.email || !formData.password) {
       return setError("Please fill in all fields.");
   }
 
@@ -69,10 +70,19 @@ const handleSubmit = async (e) => {
         <label>Username</label>
         <input
           type="text"
-          name="username"
-          placeholder="Username"
+          name="firstName"
+          placeholder="First Name"
           onChange={handleChange}
-          value={formData.username}
+          value={formData.firstName}
+          required
+        />
+        <label>Last Name</label>
+        <input
+          type="text"
+          name="lastName"
+          placeholder="Last Name"
+          onChange={handleChange}
+          value={formData.lastName}
           required
         />
 
