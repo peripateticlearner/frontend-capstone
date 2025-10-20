@@ -175,7 +175,7 @@ function AdminDashboard() {
         >
           <thead style={{ backgroundColor: "#001F3F", color: "#fff" }}>
             <tr>
-              <th className={styles.cell}>Username</th>
+              <th className={styles.cell}>Name</th>
               <th className={styles.cell}>Email</th>
             </tr>
           </thead>
