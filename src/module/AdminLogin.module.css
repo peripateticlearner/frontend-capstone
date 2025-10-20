@@ -1,0 +1,39 @@
+.container {
+  max-width: 400px;
+  margin: 5rem auto;
+  text-align: center;
+}
+
+input {
+  padding: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 0.75rem;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+p {
+  margin-top: 1rem;
+}
+
+.message {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.messageError {
+  color: red;
+  font-weight: bold;
+}
+
+.messageSuccess {
+  color: green;
+  font-weight: bold;
+}

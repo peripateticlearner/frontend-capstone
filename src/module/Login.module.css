@@ -1,0 +1,14 @@
+.message {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.messageError {
+  color: red;
+  font-weight: bold;
+}
+
+.messageSuccess {
+  color: green;
+  font-weight: bold;
+}

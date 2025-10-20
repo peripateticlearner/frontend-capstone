@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 function NavBar() {
     // Check authentication and role from localStorage (or state management)
     const isLoggedIn = localStorage.getItem("userId") || localStorage.getItem("adminId");
-    const isAdmin = localStorage.getItem("isAdmin") === "true";
+    const isAdmin = localStorage.getItem("isAdmin") === "true" || false;
 
     return (
         <nav style={{
