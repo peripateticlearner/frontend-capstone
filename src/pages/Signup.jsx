@@ -67,7 +67,7 @@ const handleSubmit = async (e) => {
 
       {/* Signup form */}
       <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <label>Username</label>
+        <label>First Name</label>
         <input
           type="text"
           name="firstName"
