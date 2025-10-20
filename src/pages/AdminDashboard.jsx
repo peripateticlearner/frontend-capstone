@@ -182,7 +182,7 @@ function AdminDashboard() {
           <tbody>
             {users.map((user) => (
               <tr key={user._id} style={{ backgroundColor: "#f9f9f9" }}>
-                <td className={styles.cell}>{user.username}</td>
+                <td className={styles.cell}>{user.firstName} {user.lastName}</td>
                 <td className={styles.cell}>{user.email}</td>
               </tr>
             ))}
