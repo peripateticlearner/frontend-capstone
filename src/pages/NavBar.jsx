@@ -1,9 +1,36 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 function NavBar() {
-    // Check authentication and role from localStorage (or state management)
-    const isLoggedIn = localStorage.getItem("userId") || localStorage.getItem("adminId");
-    const isAdmin = localStorage.getItem("isAdmin") === "true" || false;
+    // Use state to make the component reactive to auth changes
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    // Check auth status on mount and when localStorage changes
+    useEffect(() => {
+        const checkAuth = () => {
+            const userId = localStorage.getItem("userId");
+            const adminId = localStorage.getItem("adminId");
+            const adminStatus = localStorage.getItem("isAdmin") === "true";
+            
+            setIsLoggedIn(!!(userId || adminId));
+            setIsAdmin(adminStatus);
+        };
+
+        // Check on mount
+        checkAuth();
+
+        // Listen for storage events (for cross-tab changes)
+        window.addEventListener('storage', checkAuth);
+
+        // Custom event for same-tab changes
+        window.addEventListener('authChange', checkAuth);
+
+        return () => {
+            window.removeEventListener('storage', checkAuth);
+            window.removeEventListener('authChange', checkAuth);
+        };
+    }, []);
 
     return (
         <nav style={{
@@ -18,7 +45,7 @@ function NavBar() {
             <h3 style={{ margin: 0 }}>Atlas Taxi</h3>
             <div>
                 <ul style={{ listStyle:"none", display: "flex", gap: "1rem", margin: 0, padding: 0 }}>
-                    <li><Link to="/">Home</Link></li>  
+                    {!isLoggedIn && <li><Link to="/">Home</Link></li>}
                     {!isLoggedIn && <li><Link to="/signup">Sign Up</Link></li>}
                     {!isLoggedIn && <li><Link to="/login">Login</Link></li>}
                     {!isLoggedIn && <li><Link to="/admin-login">Admin Login</Link></li>}  
