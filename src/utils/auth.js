@@ -18,7 +18,12 @@ export const login = async (url, formData, setMessage, navigate, role) => {
     localStorage.setItem("isAdmin", role === "admin" ? "true" : "false");
 
     setMessage("Login successful! Redirecting...");
-    setTimeout(() => navigate(role === "admin" ? "/admin" : "/dashboard"), 1000);
+    
+    // Navigate immediately and let the route handle the auth check
+    navigate(role === "admin" ? "/admin" : "/dashboard");
+    
+    // Force a refresh to ensure localStorage is read
+    window.location.reload();
   } catch (err) {
     console.error("Login error:", err);
     setMessage("Something went wrong. Please try again.");
