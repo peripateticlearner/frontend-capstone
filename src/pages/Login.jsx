@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { login } from "../utils/auth";
 import styles from "../module/Signup.module.css";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -15,35 +16,13 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Frontend validation
+
     if (!formData.email || !formData.password) {
       setMessage("Please fill in all fields.");
       return;
     }
 
-    try {
-      const res = await fetch(`${BASE_URL}/api/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setMessage(data.message || "Login failed.");
-        return;
-      }
-
-      localStorage.setItem("userId", data._id);
-      localStorage.setItem("isAdmin", "false");
-      setMessage("Login successful! Redirecting...");
-      setTimeout(() => navigate("/dashboard"), 1000);
-    } catch (err) {
-      console.error("Login error:", err);
-      setMessage("Something went wrong. Please try again.");
-    }
+    await login(`${BASE_URL}/api/auth/user-login`, formData, setMessage, navigate, "user");
   };
 
   return (
@@ -71,7 +50,7 @@ function Login() {
         </button>
       </form>
       {message && (
-        <p style={{ color: message.includes("success") ? "green" : "red", marginTop: "1rem" }}>
+        <p className={`${styles.message} ${message.includes("success") ? styles.messageSuccess : styles.messageError}`}>
           {message}
         </p>
       )}
