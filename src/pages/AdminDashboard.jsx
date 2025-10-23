@@ -8,11 +8,21 @@ function AdminDashboard() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState("");
 
+  // Get token from localStorage
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
+    if (!token) {
+      setError("Not authenticated. Please login.");
+      return;
+    }
+
     // Fetch all rides from backend
     const fetchRides = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/api/rides`);
+        const res = await axios.get(`${BASE_URL}/api/rides`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
         setRides(res.data);
       } catch (err) {
         console.error(err);
@@ -33,9 +43,8 @@ function AdminDashboard() {
 
     fetchRides();
     fetchUsers();
-  }, []);
+  }, [token]);
 
-  // Get button text based on ride status
   const getStatusButtonText = (status) => {
     switch (status) {
       case "Scheduled":
@@ -49,7 +58,6 @@ function AdminDashboard() {
     }
   };
 
-  // Toggle ride status and update it in the backend
   const toggleStatus = async (rideId, currentStatus) => {
     let newStatus;
 
@@ -58,18 +66,18 @@ function AdminDashboard() {
     else if (currentStatus === "Completed") newStatus = "Scheduled";
     else return;
 
-    // Confirm admin action
     const confirmAction = window.confirm(
       `Are you sure you want to mark this ride as ${newStatus}?`
     );
     if (!confirmAction) return;
 
     try {
-      await axios.patch(`${BASE_URL}/api/rides/${rideId}`, {
-        status: newStatus,
-      });
+      await axios.patch(
+        `${BASE_URL}/api/rides/${rideId}`,
+        { status: newStatus },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
-      // Update UI after successful backend update
       setRides((prev) =>
         prev.map((ride) =>
           ride._id === rideId ? { ...ride, status: newStatus } : ride
@@ -80,11 +88,14 @@ function AdminDashboard() {
       setError("Failed to update ride status.");
     }
   };
+
   const handleDelete = async (rideId) => {
     if (!window.confirm("Are you sure you want to delete this ride?")) return;
 
     try {
-      await axios.delete(`${BASE_URL}/api/rides/${rideId}`);
+      await axios.delete(`${BASE_URL}/api/rides/${rideId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       setRides((prev) => prev.filter((ride) => ride._id !== rideId));
     } catch (err) {
       console.error("Delete failed:", err.response?.data || err.message);
@@ -152,8 +163,6 @@ function AdminDashboard() {
                     Delete
                   </button>
                 </td>
-
-
               </tr>
             ))}
           </tbody>

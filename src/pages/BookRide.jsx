@@ -1,10 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL; // Dynamically use the environment variable
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function BookRide() {
-    // Store ride form values
     const [formData, setFormData] = useState({
         pickupLocation: "",
         dropoffLocation: "",
@@ -14,7 +13,6 @@ function BookRide() {
 
     const [message, setMessage] = useState("");
 
-    // Handle form field changes
     const handleChange = (e) => {
         setFormData(prev => ({
             ...prev,
@@ -22,17 +20,31 @@ function BookRide() {
         }));
     };
 
-    // Submit ride to backend
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validation on the frontend as well
         if (!formData.pickupLocation || !formData.dropoffLocation || !formData.scheduledTime || !formData.contactInfo) {
             return setMessage("Please fill in all fields.");
         }
 
+        // Get the JWT token from localStorage
+        const token = localStorage.getItem("token");
+        
+        if (!token) {
+            return setMessage("You must be logged in to book a ride.");
+        }
+
         try {
-            const res = await axios.post(`${BASE_URL}/api/rides`, formData);
+            // Send request with Authorization header
+            const res = await axios.post(
+                `${BASE_URL}/api/rides`,
+                formData,
+                {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            );
 
             setMessage("Ride booked successfully!");
             setFormData({
@@ -43,7 +55,11 @@ function BookRide() {
             });
         } catch (err) {
             console.error(err);
-            setMessage("Failed to book ride. Please try again.");
+            if (err.response?.status === 401 || err.response?.status === 403) {
+                setMessage("Session expired. Please login again.");
+            } else {
+                setMessage("Failed to book ride. Please try again.");
+            }
         }
     };
 
@@ -93,7 +109,6 @@ function BookRide() {
                 <button type="submit">Confirm Ride</button>
             </form>
 
-            {/* Show success or error message */}
             {message && (
                 <p style={{
                     marginTop: "1rem",

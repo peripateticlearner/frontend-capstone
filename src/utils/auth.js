@@ -13,16 +13,14 @@ export const login = async (url, formData, setMessage, navigate, role) => {
       return;
     }
 
-    // Save user/admin details in localStorage
+    // Save user/admin details AND token in localStorage
     localStorage.setItem(role === "admin" ? "adminId" : "userId", data._id);
+    localStorage.setItem("token", data.token);
     localStorage.setItem("isAdmin", role === "admin" ? "true" : "false");
 
     setMessage("Login successful! Redirecting...");
     
-    // Navigate immediately and let the route handle the auth check
     navigate(role === "admin" ? "/admin" : "/dashboard");
-    
-    // Force a refresh to ensure localStorage is read
     window.location.reload();
   } catch (err) {
     console.error("Login error:", err);
