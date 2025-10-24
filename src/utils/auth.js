@@ -18,6 +18,11 @@ export const login = async (url, formData, setMessage, navigate, role) => {
     localStorage.setItem("token", data.token);
     localStorage.setItem("isAdmin", role === "admin" ? "true" : "false");
 
+    if (role === "user") {
+      localStorage.setItem("userFirstName", data.firstName);
+      localStorage.setItem("userLastName", data.lastName);
+    }
+
     setMessage("Login successful! Redirecting...");
     
     navigate(role === "admin" ? "/admin" : "/dashboard");

@@ -8,6 +8,9 @@ function UserDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const firstName = localStorage.getItem("userFirstName"); //get firstName from localStorage
+
+
   useEffect(() => {
     const fetchUserRides = async () => {
       const token = localStorage.getItem("token");
@@ -51,7 +54,7 @@ function UserDashboard() {
 
   return (
     <div style={{ padding: "2rem", maxWidth: "1000px", margin: "0 auto" }}>
-      <h1>Welcome to Your Dashboard</h1>
+      <h1>Welcome, {firstName || "User"}!</h1>
       <p>View your booked rides below:</p>
 
       {error && <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>}
