@@ -35,7 +35,26 @@ function AdminLogin() {
 
   return (
     <div className={styles.container}>
-      <h2>Admin Login</h2>
+    <div style={{ 
+      display: "flex", 
+      alignItems: "center", 
+      justifyContent: "center", 
+      gap: "0.5rem",
+      marginBottom: "1rem"
+    }}>
+      <h2 style={{ margin: 0 }}>Admin Login</h2>
+      <span style={{ 
+        fontSize: "0.7rem", 
+        backgroundColor: "#dc3545", 
+        color: "white", 
+        padding: "0.25rem 0.6rem", 
+        borderRadius: "4px",
+        fontWeight: "bold",
+        letterSpacing: "0.5px"
+      }}>
+        ADMIN
+      </span>
+    </div>
       
       {message && (
         <p className={`${styles.message} ${
