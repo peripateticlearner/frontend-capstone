@@ -48,7 +48,6 @@ function NavBar() {
                     {!isLoggedIn && <li><Link to="/">Home</Link></li>}
                     {!isLoggedIn && <li><Link to="/signup">Sign Up</Link></li>}
                     {!isLoggedIn && <li><Link to="/login">Login</Link></li>}
-                    {!isLoggedIn && <li><Link to="/admin-login">Admin Login</Link></li>}  
                     {isLoggedIn && !isAdmin && <li><Link to="/book">Book a Ride</Link></li>}
                     {isLoggedIn && !isAdmin && <li><Link to="/dashboard">User Dashboard</Link></li>}
                     {isLoggedIn && isAdmin && <li><Link to="/admin">Admin Dashboard</Link></li>}

@@ -9,6 +9,7 @@ function AdminLogin() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+
   // Check if user was redirected due to session expiration
   useEffect(() => {
     if (localStorage.getItem('sessionExpired')) {
@@ -16,6 +17,7 @@ function AdminLogin() {
       localStorage.removeItem('sessionExpired');
     }
   }, []);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -34,12 +36,20 @@ function AdminLogin() {
   return (
     <div className={styles.container}>
       <h2>Admin Login</h2>
+      
       {message && (
-        <p className={`${styles.message} ${message.includes("success") ? styles.messageSuccess : styles.messageError}`}>
+        <p className={`${styles.message} ${
+          message.includes("success") 
+            ? styles.messageSuccess 
+            : message.includes("expired") 
+              ? styles.messageWarning 
+              : styles.messageError
+        }`}>
           {message}
         </p>
       )}
-      <form onSubmit={handleSubmit}>
+      
+      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <input
           className={styles.input}
           type="email"
@@ -60,11 +70,6 @@ function AdminLogin() {
           Login
         </button>
       </form>
-      {message && (
-        <p className={`${styles.message} ${message.includes("success") ? styles.messageSuccess : styles.messageError}`}>
-          {message}
-        </p>
-      )}
     </div>
   );
 }

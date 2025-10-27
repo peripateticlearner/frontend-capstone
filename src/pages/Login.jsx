@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , Link} from "react-router-dom";
 import { login } from "../utils/auth";
 import styles from "../module/Signup.module.css";
 
@@ -70,6 +70,17 @@ function Login() {
           Login
         </button>
       </form>
+      <p style={{ 
+      marginTop: "1.5rem", 
+      textAlign: "center", 
+      fontSize: "0.9rem",
+      color: "#666"
+      }}>
+        Are you an administrator?{" "}
+        <Link to="/admin-login" style={{ color: "#007bff", textDecoration: "underline" }}>
+         Admin Login
+        </Link>
+      </p>
     </div>
   );
 }
