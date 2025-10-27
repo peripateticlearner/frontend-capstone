@@ -1,7 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
-
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import axios from "../utils/axiosInstance";
 
 function BookRide() {
     const [formData, setFormData] = useState({
@@ -37,7 +35,7 @@ function BookRide() {
         try {
             // Send request with Authorization header
             const res = await axios.post(
-                `${BASE_URL}/api/rides`,
+                "/api/rides",
                 formData,
                 {
                     headers: {
@@ -55,11 +53,7 @@ function BookRide() {
             });
         } catch (err) {
             console.error(err);
-            if (err.response?.status === 401 || err.response?.status === 403) {
-                setMessage("Session expired. Please login again.");
-            } else {
-                setMessage("Failed to book ride. Please try again.");
-            }
+            setMessage("Failed to book ride. Please try again.");
         }
     };
 

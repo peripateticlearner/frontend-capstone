@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../utils/auth";
 import styles from "../module/AdminLogin.module.css";
@@ -9,7 +9,13 @@ function AdminLogin() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-
+  // Check if user was redirected due to session expiration
+  useEffect(() => {
+    if (localStorage.getItem('sessionExpired')) {
+      setMessage('Your session expired. Please log in again.');
+      localStorage.removeItem('sessionExpired');
+    }
+  }, []);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -28,6 +34,11 @@ function AdminLogin() {
   return (
     <div className={styles.container}>
       <h2>Admin Login</h2>
+      {message && (
+        <p className={`${styles.message} ${message.includes("success") ? styles.messageSuccess : styles.messageError}`}>
+          {message}
+        </p>
+      )}
       <form onSubmit={handleSubmit}>
         <input
           className={styles.input}

@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import axios from "../utils/axiosInstance";
 
 function UserDashboard() {
   const [rides, setRides] = useState([]);
@@ -22,21 +20,16 @@ function UserDashboard() {
       }
 
       try {
-        const response = await axios.get(`${BASE_URL}/api/rides`, {
+        const response = await axios.get("/api/rides", {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
-        
         setRides(response.data);
         setLoading(false);
       } catch (err) {
         console.error("Error fetching rides:", err);
-        if (err.response?.status === 401 || err.response?.status === 403) {
-          setError("Session expired. Please log in again.");
-        } else {
-          setError("Failed to fetch your rides.");
-        }
+        setError("Failed to fetch your rides.");
         setLoading(false);
       }
     };

@@ -12,3 +12,14 @@
   color: green;
   font-weight: bold;
 }
+
+/* Add this new style */
+.messageWarning {
+  color: #856404;
+  background-color: #fff3cd;
+  padding: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #ffeeba;
+  font-weight: bold;
+  margin-top: 1rem;
+}

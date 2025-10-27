@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../utils/axiosInstance";
 import styles from "../module/AdminDashboard.module.css";
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function AdminDashboard() {
   const [rides, setRides] = useState([]);
@@ -20,7 +19,7 @@ function AdminDashboard() {
     // Fetch all rides from backend
     const fetchRides = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/api/rides`, {
+        const res = await axios.get("/api/rides", {
           headers: { Authorization: `Bearer ${token}` }
         });
         setRides(res.data);
@@ -33,7 +32,7 @@ function AdminDashboard() {
     // Fetch all users from backend
     const fetchUsers = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/api/user`);
+        const res = await axios.get("/api/user");
         setUsers(res.data);
       } catch (err) {
         console.error(err);
@@ -73,7 +72,7 @@ function AdminDashboard() {
 
     try {
       await axios.patch(
-        `${BASE_URL}/api/rides/${rideId}`,
+        `/api/rides/${rideId}`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -93,7 +92,7 @@ function AdminDashboard() {
     if (!window.confirm("Are you sure you want to delete this ride?")) return;
 
     try {
-      await axios.delete(`${BASE_URL}/api/rides/${rideId}`, {
+      await axios.delete(`/api/rides/${rideId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setRides((prev) => prev.filter((ride) => ride._id !== rideId));

@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-
-const BASE_URL = import.meta.env.VITE_API_BASE_URL; // Dynamically use the environment variable
+import axios from "../utils/axiosInstance";
 
 function Signup() {
   // State to hold form data
@@ -37,7 +35,7 @@ const handleSubmit = async (e) => {
 
   try {
       // Send a POST request to the server
-      const response = await axios.post(`${BASE_URL}/api/auth/user-register`, formData);
+      const response = await axios.post("/api/auth/user-register", formData);
 
       // Save the user ID locally for later use
       localStorage.setItem("userId", response.data._id);
