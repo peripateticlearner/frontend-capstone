@@ -6,8 +6,7 @@ function UserDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const firstName = localStorage.getItem("userFirstName"); //get firstName from localStorage
-
+  const firstName = localStorage.getItem("userFirstName");
 
   useEffect(() => {
     const fetchUserRides = async () => {
@@ -25,7 +24,19 @@ function UserDashboard() {
             Authorization: `Bearer ${token}`
           }
         });
-        setRides(response.data);
+        
+        // Ensure rides is always an array
+        const ridesData = response.data;
+        
+        if (Array.isArray(ridesData)) {
+          setRides(ridesData);
+        } else if (ridesData && Array.isArray(ridesData.rides)) {
+          setRides(ridesData.rides);
+        } else {
+          console.error('Unexpected rides data format:', ridesData);
+          setRides([]);
+        }
+        
         setLoading(false);
       } catch (err) {
         console.error("Error fetching rides:", err);
@@ -89,7 +100,7 @@ function UserDashboard() {
             </tr>
           </thead>
           <tbody>
-            {rides.map((ride) => (
+            {Array.isArray(rides) && rides.map((ride) => (
               <tr key={ride._id} style={{ backgroundColor: "#f9f9f9" }}>
                 <td style={{ padding: "0.75rem", border: "1px solid #ddd" }}>
                   {ride.pickupLocation}
