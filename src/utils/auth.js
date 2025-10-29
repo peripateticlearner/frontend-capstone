@@ -1,5 +1,8 @@
 export const login = async (url, formData, setMessage, navigate, role) => {
   try {
+    // Show connection message immediately
+    setMessage("Connecting to server...");
+    
     const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -29,6 +32,12 @@ export const login = async (url, formData, setMessage, navigate, role) => {
     window.location.reload();
   } catch (err) {
     console.error("Login error:", err);
-    setMessage("Something went wrong. Please try again.");
+    
+    // Better error message for network/timeout issues (common with Render cold starts)
+    if (err.message.includes('Failed to fetch') || err.name === 'TypeError') {
+      setMessage("Server is starting up (this takes 30-60 seconds on free hosting). Please try again in a moment.");
+    } else {
+      setMessage("Something went wrong. Please try again.");
+    }
   }
 };
