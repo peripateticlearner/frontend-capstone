@@ -14,6 +14,8 @@ React-based frontend for a ride-booking application with JWT authentication, pro
 
 > 💡 **Tip:** Sign up as a new user or use the test accounts above to explore the app!
 
+> ⚠️ **Hosting Note:** This demo uses free-tier hosting (Render). On the first request after 15 minutes of inactivity, the backend may take 30-60 seconds to wake up. If you see a connection message, please wait a moment and try again. This is a limitation of free hosting and would not occur in a production environment with paid hosting ($7/month eliminates cold starts). To demonstrate understanding of production considerations, UptimeRobot monitoring is used to prevent most cold starts during demo usage.
+
 > 📌 **Note:** This is a portfolio/demonstration project showcasing full-stack development skills. All data is for testing purposes only.
 
 ## Features
@@ -226,6 +228,26 @@ Output will be in the `dist/` directory.
 **Environment Variables:** `VITE_API_BASE_URL` set in Netlify dashboard
 
 **Important:** `_redirects` file ensures React Router works correctly on deployed site by serving `index.html` for all routes.
+
+### Hosting Architecture
+
+**Current (Demo):**
+- **Frontend:** Netlify Free Tier
+- **Backend:** Render Free Tier (may experience cold starts)
+- **Database:** MongoDB Atlas Free Tier (M0)
+- **Uptime Monitoring:** UptimeRobot (keeps backend responsive)
+
+**Recommended for Production:**
+- **Frontend:** Netlify (free tier is suitable)
+- **Backend:** Render Starter ($7/month) or Railway - eliminates cold starts
+- **Database:** MongoDB Atlas M10 ($57/month) - includes backups and better performance
+- **Estimated Cost:** ~$70/month for professional deployment
+
+### Cold Start Mitigation
+
+This demo implements two strategies to handle free-tier cold starts:
+1. **UptimeRobot monitoring** - Pings backend every 14 minutes to keep it awake
+2. **User feedback** - Displays "Connecting to server..." message during wake-up periods
 
 ## Security Documentation
 
