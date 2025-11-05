@@ -1,74 +1,150 @@
+/* Wrapper for entire landing page */
+.landing {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f8ff;
+}
 
+/* Content area below navbar */
 .landingContainer {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f0f8ff;
+    flex: 1;
+    padding: 2rem 1rem;
     font-family: sans-serif;
 }
 
 .contentContainer {
-    text-align: left;
-    padding: 2rem;
-    flex: 1;
-    max-width: 400px;
+    text-align: center;
+    padding: 2rem 1rem;
+    max-width: 500px;
 }
 
 .mainTitle {
-    font-size: 2.7rem; 
-    font-weight: 600; 
+    font-size: 2rem;
+    font-weight: 600;
     color: #2c3e50;
     margin-bottom: 1rem;
+    line-height: 1.2;
 }
 
 .tagline {
     font-size: 1.1rem;
     color: #555;
     margin-bottom: 2rem;
-    font-style: italic; 
+    font-style: italic;
+    line-height: 1.6;
 }
 
 .buttonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     margin-top: 2rem;
+}
+
+.signupButton,
+.loginButton {
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    min-height: 48px;
+    font-weight: 500;
 }
 
 .signupButton {
     background-color: #007bff;
     color: white;
-    padding: 0.6rem 1.2rem;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-right: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
+    border: 2px solid #007bff;
 }
 
 .signupButton:hover {
-    background-color: #0056b3; 
+    background-color: #0056b3;
+    border-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
 }
 
 .loginButton {
     background-color: white;
     color: #007bff;
-    padding: 0.6rem 1.2rem;
-    border: 1px solid #007bff;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, color 0.3s ease; 
+    border: 2px solid #007bff;
 }
 
 .loginButton:hover {
-    background-color: #f0f8ff; 
-    color: #0056b3;
+    background-color: #007bff;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
 }
 
 .taxiImage {
-    max-width: 60%;
-    height: 100%;
+    display: none;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
     object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    margin-top: 2rem;
+}
+
+/* Tablet - Show image, side-by-side buttons */
+@media (min-width: 480px) {
+    .buttonContainer {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .taxiImage {
+        display: block;
+    }
+}
+
+/* Tablet and up - Larger text */
+@media (min-width: 768px) {
+    .mainTitle {
+        font-size: 2.5rem;
+    }
+
+    .tagline {
+        font-size: 1.2rem;
+    }
+}
+
+/* Desktop - Side by side layout */
+@media (min-width: 1024px) {
+    .landingContainer {
+        flex-direction: row;
+        gap: 4rem;
+        padding: 3rem 2rem;
+    }
+
+    .contentContainer {
+        text-align: left;
+        flex: 1;
+    }
+
+    .mainTitle {
+        font-size: 3rem;
+    }
+
+    .tagline {
+        font-size: 1.3rem;
+    }
+
+    .buttonContainer {
+        justify-content: flex-start;
+    }
+
+    .taxiImage {
+        flex: 1;
+        margin-top: 0;
+    }
 }

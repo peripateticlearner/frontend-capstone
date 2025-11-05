@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import styles from '../module/NavBar.module.css';
 
 function NavBar() {
-    // Use state to make the component reactive to auth changes
+    const [isOpen, setIsOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
 
-    // Check auth status on mount and when localStorage changes
     useEffect(() => {
         const checkAuth = () => {
             const userId = localStorage.getItem("userId");
@@ -17,13 +17,8 @@ function NavBar() {
             setIsAdmin(adminStatus);
         };
 
-        // Check on mount
         checkAuth();
-
-        // Listen for storage events (for cross-tab changes)
         window.addEventListener('storage', checkAuth);
-
-        // Custom event for same-tab changes
         window.addEventListener('authChange', checkAuth);
 
         return () => {
@@ -32,28 +27,43 @@ function NavBar() {
         };
     }, []);
 
+    const closeMenu = () => setIsOpen(false);
+
     return (
-        <nav style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "1rem 2rem",
-            borderBottom: "1px solid #ccc",
-            backgroundColor: "#1a1a1a",
-            color: "#fff"
-        }}>
-            <h3 style={{ margin: 0 }}>Atlas Taxi</h3>
-            <div>
-                <ul style={{ listStyle:"none", display: "flex", gap: "1rem", margin: 0, padding: 0 }}>
-                    {!isLoggedIn && <li><Link to="/">Home</Link></li>}
-                    {!isLoggedIn && <li><Link to="/signup">Sign Up</Link></li>}
-                    {!isLoggedIn && <li><Link to="/login">Login</Link></li>}
-                    {isLoggedIn && !isAdmin && <li><Link to="/book">Book a Ride</Link></li>}
-                    {isLoggedIn && !isAdmin && <li><Link to="/dashboard">User Dashboard</Link></li>}
-                    {isLoggedIn && isAdmin && <li><Link to="/admin">Admin Dashboard</Link></li>}
-                    {isLoggedIn && <li><Link to="/logout">Logout</Link></li>}
-                </ul>
-            </div>
+        <nav className={styles.navbar}>
+            <h3 className={styles.navbarBrand}>Atlas Taxi</h3>
+            
+            <button 
+                className={styles.navbarToggle}
+                onClick={() => setIsOpen(!isOpen)}
+                aria-label="Toggle navigation"
+            >
+                <span className={styles.hamburger}></span>
+                <span className={styles.hamburger}></span>
+                <span className={styles.hamburger}></span>
+            </button>
+
+            <ul className={`${styles.navbarMenu} ${isOpen ? styles.active : ''}`}>
+                {!isLoggedIn && (
+                    <>
+                        <li><Link to="/" onClick={closeMenu}>Home</Link></li>
+                        <li><Link to="/signup" onClick={closeMenu}>Sign Up</Link></li>
+                        <li><Link to="/login" onClick={closeMenu}>Login</Link></li>
+                    </>
+                )}
+                {isLoggedIn && !isAdmin && (
+                    <>
+                        <li><Link to="/book" onClick={closeMenu}>Book a Ride</Link></li>
+                        <li><Link to="/dashboard" onClick={closeMenu}>User Dashboard</Link></li>
+                    </>
+                )}
+                {isLoggedIn && isAdmin && (
+                    <li><Link to="/admin" onClick={closeMenu}>Admin Dashboard</Link></li>
+                )}
+                {isLoggedIn && (
+                    <li><Link to="/logout" onClick={closeMenu}>Logout</Link></li>
+                )}
+            </ul>
         </nav>
     );
 }
