@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     background-color: #f0f8ff;
+    overflow-x: hidden;
 }
 
 /* Content area below navbar */
@@ -15,12 +16,18 @@
     flex: 1;
     padding: 2rem 1rem;
     font-family: sans-serif;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .contentContainer {
     text-align: center;
     padding: 2rem 1rem;
-    max-width: 500px;
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
 }
 
 .mainTitle {
@@ -84,10 +91,10 @@
     box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
 }
 
+/* Mobile - Show image that fits within padding */
 .taxiImage {
-    display: none;
-    width: 100%;
-    max-width: 600px;
+    width: calc(100% - 2rem); /* Account for container padding */
+    max-width: 400px;
     height: auto;
     object-fit: cover;
     border-radius: 12px;
@@ -95,7 +102,7 @@
     margin-top: 2rem;
 }
 
-/* Tablet - Show image, side-by-side buttons */
+/* Small tablet - Side by side buttons */
 @media (min-width: 480px) {
     .buttonContainer {
         flex-direction: row;
@@ -103,11 +110,11 @@
     }
 
     .taxiImage {
-        display: block;
+        max-width: 450px;
     }
 }
 
-/* Tablet and up - Larger text */
+/* Tablet - Larger text and image */
 @media (min-width: 768px) {
     .mainTitle {
         font-size: 2.5rem;
@@ -116,19 +123,40 @@
     .tagline {
         font-size: 1.2rem;
     }
+
+    .taxiImage {
+        max-width: 550px;
+    }
+}
+
+/* Large tablet/Small desktop - Keep stacked but larger */
+@media (min-width: 900px) {
+    .contentContainer {
+        max-width: 700px;
+    }
+
+    .mainTitle {
+        font-size: 2.8rem;
+    }
+
+    .taxiImage {
+        max-width: 650px;
+    }
 }
 
 /* Desktop - Side by side layout */
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
     .landingContainer {
         flex-direction: row;
-        gap: 4rem;
+        gap: 3rem;
         padding: 3rem 2rem;
+        align-items: center;
     }
 
     .contentContainer {
         text-align: left;
         flex: 1;
+        max-width: none;
     }
 
     .mainTitle {
@@ -146,5 +174,18 @@
     .taxiImage {
         flex: 1;
         margin-top: 0;
+        max-width: 600px;
+        width: 100%; /* Full width within flex container */
+    }
+}
+
+/* Extra large screens */
+@media (min-width: 1400px) {
+    .mainTitle {
+        font-size: 3.5rem;
+    }
+
+    .tagline {
+        font-size: 1.4rem;
     }
 }
