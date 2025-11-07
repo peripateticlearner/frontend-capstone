@@ -2,7 +2,7 @@
 
 **Full-Stack Development Capstone Project**
 
-React-based frontend for a ride-booking application with JWT authentication, protected routes, and role-based dashboards.
+React-based frontend for a ride-booking application with JWT authentication, protected routes, role-based dashboards, and mobile-first responsive design.
 
 ## 🚀 Live Demo
 
@@ -12,7 +12,7 @@ React-based frontend for a ride-booking application with JWT authentication, pro
 - **User:** `demo@test.com` / `demo1234`
 - **Admin:** `admin@test.com` / `admin1234`
 
-> 💡 **Tip:** Sign up as a new user or use the test accounts above to explore the app!
+> 💡 **Tip:** Sign up as a new user or use the test accounts above to explore the app! Try it on your mobile device to see the responsive design in action.
 
 > ⚠️ **Hosting Note:** This demo uses free-tier hosting (Render). On the first request after 15 minutes of inactivity, the backend may take 30-60 seconds to wake up. If you see a connection message, please wait a moment and try again. This is a limitation of free hosting and would not occur in a production environment with paid hosting ($7/month eliminates cold starts). To demonstrate understanding of production considerations, UptimeRobot monitoring is used to prevent most cold starts during demo usage.
 
@@ -32,14 +32,48 @@ React-based frontend for a ride-booking application with JWT authentication, pro
 - ⏱️ User-friendly session expiration warnings
 - 🎯 Axios interceptor for centralized error handling
 
+## 📱 Mobile-First Responsive Design
+
+Atlas Taxi is fully responsive and optimized for all devices with a mobile-first approach:
+
+### Key Mobile Features:
+- 📱 **Hamburger navigation menu** with smooth slide-in animation
+- 👆 **Touch-friendly interface** (48px minimum tap targets)
+- 📐 **Responsive layouts** that adapt from mobile to desktop
+- 🖼️ **Optimized images** that scale appropriately per device
+- 🎨 **Clean CSS architecture** using CSS Modules without excessive specificity conflicts
+
+### Tested & Verified On:
+- ✅ iPhone 12 Pro (390px)
+- ✅ Samsung Galaxy S8+ (360px)
+- ✅ iPad Mini (768px)
+- ✅ iPad Pro (1024px)
+- ✅ Surface Pro 7 (912px)
+- ✅ Nest Hub (1024px)
+- ✅ Desktop (1200px+)
+
+### Responsive Breakpoints:
+```css
+Mobile:  320px - 767px   (Stacked layout, hamburger menu)
+Tablet:  768px - 1199px  (Stacked layout, horizontal nav)
+Desktop: 1200px+         (Side-by-side layout)
+```
+
+### Design Approach:
+- **Mobile-first CSS** - Base styles for mobile, progressively enhanced for larger screens
+- **Flexible layouts** - Flexbox and CSS Grid for adaptive designs
+- **Performance optimized** - Fast loading on mobile networks
+- **Progressive enhancement** - Works on all devices, enhanced on modern browsers
+
 ## Tech Stack
 
 - **Framework:** React 18
 - **Routing:** React Router v6
 - **HTTP Client:** Axios with interceptors
-- **Styling:** CSS Modules
+- **Styling:** CSS Modules (Mobile-First, Responsive)
 - **Build Tool:** Vite
 - **State Management:** React Hooks (useState, useEffect)
+- **Responsive Design:** Flexbox, CSS Grid, Media Queries
 - **Deployment:** Netlify
 
 ## User Roles
@@ -60,7 +94,7 @@ React-based frontend for a ride-booking application with JWT authentication, pro
 ## Pages & Components
 
 ### Public Pages
-- **Landing** - Home page with sign up/login options
+- **Landing** - Home page with sign up/login options (fully responsive)
 - **Signup** - User registration form
 - **Login** - User authentication with admin login link
 - **Admin Login** - Admin authentication with visual badge
@@ -72,7 +106,7 @@ React-based frontend for a ride-booking application with JWT authentication, pro
 - **Logout** - Session termination
 
 ### Components
-- **NavBar** - Dynamic navigation based on auth state
+- **NavBar** - Dynamic responsive navigation with hamburger menu
 - **PrivateRoute** - Route protection wrapper
 
 ## Project Structure
@@ -95,14 +129,18 @@ frontend-capstone/
 │   │   ├── auth.js              Authentication utilities
 │   │   └── axiosInstance.js     Axios config with interceptors
 │   ├── module/
-│   │   └── *.module.css         Component styles
+│   │   ├── NavBar.module.css        Mobile-first navigation
+│   │   ├── Landing.module.css       Responsive landing page
+│   │   ├── Login.module.css         Form styling
+│   │   └── *.module.css             Component styles
 │   ├── docs/
 │   │   └── SECURITY.md          Security documentation
 │   ├── App.jsx
 │   ├── main.jsx
-│   └── index.css
+│   └── index.css                Global styles
 ├── public/
-│   └── _redirects               Netlify routing config
+│   ├── _redirects               Netlify routing config
+│   └── taxi-image.jpg           Hero image
 └── package.json
 ```
 
@@ -168,6 +206,20 @@ const firstName = localStorage.getItem("userFirstName");
 <h1>Welcome, {firstName || "User"}!</h1>
 ```
 
+### Mobile-First Responsive Navigation
+```css
+/* Mobile-first approach */
+.navbarMenu {
+  flex-direction: column; /* Mobile default */
+}
+
+@media (min-width: 768px) {
+  .navbarMenu {
+    flex-direction: row; /* Desktop override */
+  }
+}
+```
+
 ### Automatic Token Expiration Handling
 ```javascript
 // Axios interceptor catches expired tokens
@@ -208,11 +260,13 @@ axiosInstance.interceptors.response.use(
 ## Styling
 
 - **CSS Modules** for component-scoped styles
+- **Mobile-first approach** with progressive enhancement
 - Consistent color scheme (dark nav, blue accents)
-- Responsive design principles
+- Responsive design principles with Flexbox and Grid
 - Form validation styling (error/success/warning states)
 - Session expiration warnings with yellow background
 - Admin badge for visual distinction
+- Touch-friendly 48px minimum tap targets
 
 ## Build for Production
 ```bash
@@ -263,4 +317,4 @@ See [docs/SECURITY.md](docs/SECURITY.md) for information about:
 
 ---
 
-**Built as part of a full-stack development capstone project demonstrating React, authentication, and modern frontend development practices.**
+**Built as part of a full-stack development capstone project demonstrating React, authentication, responsive mobile-first design, and modern frontend development practices.**

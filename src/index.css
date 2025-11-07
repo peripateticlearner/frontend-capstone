@@ -16,13 +16,14 @@ body {
   color: #222;
 }
 
-/* Links */
-a {
+/* Links - Exclude navbar links */
+a:not(nav a) {
   font-weight: 500;
   color: #007bff;
   text-decoration: none;
 }
-a:hover {
+
+a:not(nav a):hover {
   color: #0056b3;
 }
 
@@ -45,6 +46,7 @@ button {
   cursor: pointer;
   transition: background-color 0.25s;
 }
+
 button:hover {
   background-color: #0056b3;
 }
