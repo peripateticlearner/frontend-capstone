@@ -9,10 +9,12 @@ function AdminDashboard() {
 
   // Get token from localStorage
   const token = localStorage.getItem("token");
+  let tokenPayload = null;
+  try { tokenPayload = token ? JSON.parse(atob(token.split(".")[1])) : null; } catch (e) { /* invalid token */ }
 
   useEffect(() => {
-    if (!token) {
-      setError("Not authenticated. Please login.");
+    if (!token || tokenPayload?.role !== "admin") {
+      setError("Not authenticated or insufficient privileges.");
       return;
     }
 
@@ -32,7 +34,9 @@ function AdminDashboard() {
     // Fetch all users from backend
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("/api/user");
+        const res = await axios.get("/api/user", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
         setUsers(res.data);
       } catch (err) {
         console.error(err);
