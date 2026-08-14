@@ -67,8 +67,8 @@ Desktop: 1200px+         (Side-by-side layout)
 
 ## Tech Stack
 
-- **Framework:** React 18
-- **Routing:** React Router v6
+- **Framework:** React 19
+- **Routing:** React Router v7
 - **HTTP Client:** Axios with interceptors
 - **Styling:** CSS Modules (Mobile-First, Responsive)
 - **Build Tool:** Vite
@@ -155,7 +155,7 @@ frontend-capstone/
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/peripateticlearner/frontend-capstone
+git clone https://github.com/alikirat/frontend-capstone
 cd frontend-capstone
 ```
 
@@ -313,7 +313,7 @@ See [docs/SECURITY.md](docs/SECURITY.md) for information about:
 
 ## Related Repository
 
-**Backend API:** [https://github.com/peripateticlearner/backend-capstone](https://github.com/peripateticlearner/backend-capstone)
+**Backend API:** [https://github.com/alikirat/backend-capstone](https://github.com/alikirat/backend-capstone)
 
 ---
 
