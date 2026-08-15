@@ -4,6 +4,8 @@
 
 React-based frontend for a ride-booking application with JWT authentication, protected routes, role-based dashboards, and mobile-first responsive design.
 
+![Atlas Taxi screenshot](docs/screenshot.png)
+
 ## 🚀 Live Demo
 
 **Try it live:** [https://atlastaxi.netlify.app](https://atlastaxi.netlify.app)
