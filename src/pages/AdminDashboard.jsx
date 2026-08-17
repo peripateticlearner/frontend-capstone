@@ -32,7 +32,9 @@ function AdminDashboard() {
     // Fetch all users from backend
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("/api/user");
+        const res = await axios.get("/api/user", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
         setUsers(res.data);
       } catch (err) {
         console.error(err);
