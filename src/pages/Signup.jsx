@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "../utils/axiosInstance";
 
 function Signup() {
@@ -62,6 +62,26 @@ const handleSubmit = async (e) => {
   return (
     <div style={{ maxWidth: "400px", margin: "0 auto", padding: "2rem" }}>
       <h2>Sign Up</h2>
+
+      <div style={{
+        backgroundColor: "#e7f1ff",
+        border: "1px dashed #0066cc",
+        borderRadius: "6px",
+        padding: "1rem",
+        marginBottom: "1.25rem",
+        textAlign: "center"
+      }}>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.7rem", fontWeight: "bold", letterSpacing: "0.5px", color: "#004ea2" }}>
+          JUST EXPLORING?
+        </p>
+        <p style={{ margin: 0, fontSize: "0.85rem", color: "#003d80" }}>
+          No need to sign up — the{" "}
+          <Link to="/login" style={{ color: "#0066cc", fontWeight: "bold", textDecoration: "underline" }}>
+            Login page
+          </Link>{" "}
+          has a one-click demo rider account you can use instead.
+        </p>
+      </div>
 
       {/* Signup form */}
       <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
