@@ -46,6 +46,19 @@ function AdminDashboard() {
     fetchUsers();
   }, [token]);
 
+  const getStatusPillClass = (status) => {
+    switch (status) {
+      case "Scheduled":
+        return styles.statusPillScheduled;
+      case "In Progress":
+        return styles.statusPillInProgress;
+      case "Completed":
+        return styles.statusPillCompleted;
+      default:
+        return styles.statusPillOther;
+    }
+  };
+
   const getStatusButtonText = (status) => {
     switch (status) {
       case "Scheduled":
@@ -142,7 +155,11 @@ function AdminDashboard() {
                   {new Date(ride.scheduledTime).toLocaleString()}
                 </td>
                 <td className={styles.cell}>{ride.contactInfo}</td>
-                <td className={styles.cell}>{ride.status}</td>
+                <td className={styles.cell}>
+                  <span className={`${styles.statusPill} ${getStatusPillClass(ride.status)}`}>
+                    {ride.status}
+                  </span>
+                </td>
                 <td className={styles.cell}>
                   <button
                     className={`${styles.button} ${styles[`button${ride.status.replace(" ", "")}`]}`}
@@ -151,14 +168,7 @@ function AdminDashboard() {
                     {getStatusButtonText(ride.status)}
                   </button>
                   <button
-                    style={{
-                      marginLeft: "0.5rem",
-                      backgroundColor: "crimson",
-                      color: "white",
-                      border: "none",
-                      padding: "5px 10px",
-                      borderRadius: "4px"
-                    }}
+                    className={styles.deleteButton}
                     onClick={() => handleDelete(ride._id)}
                   >
                     Delete
