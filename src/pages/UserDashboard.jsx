@@ -57,7 +57,8 @@ function UserDashboard() {
   }
 
   return (
-    <div style={{ padding: "2rem", maxWidth: "1000px", margin: "0 auto" }}>
+    <div style={{ maxWidth: "1000px", margin: "2rem auto", padding: "0 1rem" }}>
+      <div style={{ background: "#fff", borderRadius: "8px", boxShadow: "0 2px 6px rgba(0,0,0,0.1)", padding: "2rem" }}>
       <h1>Welcome, {firstName || "User"}!</h1>
       <p>View your booked rides below:</p>
 
@@ -76,8 +77,6 @@ function UserDashboard() {
           style={{
             width: "100%",
             borderCollapse: "collapse",
-            background: "#fff",
-            boxShadow: "0 0 10px rgba(0,0,0,0.1)",
           }}
         >
           <thead style={{ backgroundColor: "#001F3F", color: "#fff" }}>
@@ -147,6 +146,7 @@ function UserDashboard() {
         </table>
         </div>
       )}
+      </div>
     </div>
   );
 }

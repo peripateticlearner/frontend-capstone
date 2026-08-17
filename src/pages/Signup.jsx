@@ -68,7 +68,7 @@ const handleSubmit = async (e) => {
         <p className={styles.demoLabel}>JUST EXPLORING?</p>
         <p className={styles.demoText}>
           No need to sign up — the{" "}
-          <Link to="/login" style={{ color: "#0066cc", fontWeight: "bold", textDecoration: "underline" }}>
+          <Link to="/login" style={{ color: "#007bff", fontWeight: "bold", textDecoration: "underline" }}>
             Login page
           </Link>{" "}
           has a one-click demo rider account you can use instead.

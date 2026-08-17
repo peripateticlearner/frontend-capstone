@@ -64,7 +64,7 @@ function BookRide() {
             padding: "2rem",
             background: "#fff",
             borderRadius: "8px",
-            boxShadow: "0 0 10px rgba(0,0,0,0.1)"
+            boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
         }}>
             <h2 style={{ marginBottom: "1rem" }}>Book a Ride</h2>
 
