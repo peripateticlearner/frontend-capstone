@@ -35,6 +35,45 @@
   background-color: #004ea2;
 }
 
+.demoBox {
+  background-color: #fff8e1;
+  border: 1px dashed #d4a017;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.demoLabel {
+  margin: 0 0 0.25rem;
+  font-size: 0.7rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  color: #8a6500;
+}
+
+.demoText {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  color: #6b5200;
+}
+
+.demoButton {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 0.9rem;
+  background-color: #d4a017;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.demoButton:hover {
+  background-color: #b8860b;
+}
+
 .message {
   margin-top: 1rem;
   font-size: 0.9rem;
