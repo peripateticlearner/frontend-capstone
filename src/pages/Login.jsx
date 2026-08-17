@@ -22,6 +22,10 @@ function Login() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const fillDemoCredentials = () => {
+    setFormData({ email: "demo@test.com", password: "demo1234" });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -36,7 +40,21 @@ function Login() {
   return (
     <div className={styles.container}>
       <h2>Login</h2>
-      
+
+      <div className={styles.demoBox}>
+        <p className={styles.demoLabel}>DEMO / TEST ACCOUNT ONLY</p>
+        <p className={styles.demoText}>
+          This is a portfolio demo — the data behind this login is synthetic.
+        </p>
+        <button
+          type="button"
+          onClick={fillDemoCredentials}
+          className={styles.demoButton}
+        >
+          Use Demo Rider Login
+        </button>
+      </div>
+
       {message && (
         <p className={`${styles.message} ${
           message.includes("success") 
@@ -55,6 +73,7 @@ function Login() {
           type="email"
           name="email"
           placeholder="Email"
+          value={formData.email}
           onChange={handleChange}
           required
         />
@@ -63,6 +82,7 @@ function Login() {
           type="password"
           name="password"
           placeholder="Password"
+          value={formData.password}
           onChange={handleChange}
           required
         />
