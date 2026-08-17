@@ -31,7 +31,7 @@ function NavBar() {
 
     return (
         <nav className={styles.navbar}>
-            <h3 className={styles.navbarBrand}>Atlas Taxi</h3>
+            <Link to="/" className={styles.navbarBrand} onClick={closeMenu}>Atlas Taxi</Link>
             
             <button 
                 className={styles.navbarToggle}
