@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "../utils/axiosInstance";
+import styles from "../module/Signup.module.css";
 
 function Signup() {
   // State to hold form data
@@ -60,21 +61,12 @@ const handleSubmit = async (e) => {
 };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "0 auto", padding: "2rem" }}>
+    <div className={styles.container}>
       <h2>Sign Up</h2>
 
-      <div style={{
-        backgroundColor: "#e7f1ff",
-        border: "1px dashed #0066cc",
-        borderRadius: "6px",
-        padding: "1rem",
-        marginBottom: "1.25rem",
-        textAlign: "center"
-      }}>
-        <p style={{ margin: "0 0 0.25rem", fontSize: "0.7rem", fontWeight: "bold", letterSpacing: "0.5px", color: "#004ea2" }}>
-          JUST EXPLORING?
-        </p>
-        <p style={{ margin: 0, fontSize: "0.85rem", color: "#003d80" }}>
+      <div className={styles.demoBox}>
+        <p className={styles.demoLabel}>JUST EXPLORING?</p>
+        <p className={styles.demoText}>
           No need to sign up — the{" "}
           <Link to="/login" style={{ color: "#0066cc", fontWeight: "bold", textDecoration: "underline" }}>
             Login page
@@ -84,9 +76,10 @@ const handleSubmit = async (e) => {
       </div>
 
       {/* Signup form */}
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem", textAlign: "left" }}>
         <label>First Name</label>
         <input
+          className={styles.input}
           type="text"
           name="firstName"
           placeholder="First Name"
@@ -96,6 +89,7 @@ const handleSubmit = async (e) => {
         />
         <label>Last Name</label>
         <input
+          className={styles.input}
           type="text"
           name="lastName"
           placeholder="Last Name"
@@ -106,6 +100,7 @@ const handleSubmit = async (e) => {
 
         <label>Email</label>
         <input
+          className={styles.input}
           type="email"
           name="email"
           placeholder="Email"
@@ -116,6 +111,7 @@ const handleSubmit = async (e) => {
 
         <label>Password</label>
         <input
+          className={styles.input}
           type="password"
           name="password"
           placeholder="Password"
@@ -124,14 +120,14 @@ const handleSubmit = async (e) => {
           required
         />
 
-        <button type="submit" style={{ marginTop: "1rem" }}>
+        <button type="submit" className={styles.button}>
           Create Account
         </button>
       </form>
 
       {/* Show feedback message */}
       {error && (
-        <p style={{ color: error.includes("successful") ? "green" : "red", marginTop: "1rem" }}>
+        <p className={`${styles.message} ${error.includes("successful") ? styles.messageSuccess : styles.messageError}`}>
           {error}
         </p>
       )}
