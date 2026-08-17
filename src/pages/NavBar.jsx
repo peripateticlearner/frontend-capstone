@@ -60,6 +60,7 @@ function NavBar() {
                 {isLoggedIn && isAdmin && (
                     <li><Link to="/admin" onClick={closeMenu}>Admin Dashboard</Link></li>
                 )}
+                <li><Link to="/about" onClick={closeMenu}>About</Link></li>
                 {isLoggedIn && (
                     <li><Link to="/logout" onClick={closeMenu}>Logout</Link></li>
                 )}
