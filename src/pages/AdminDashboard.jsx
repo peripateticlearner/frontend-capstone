@@ -115,6 +115,7 @@ function AdminDashboard() {
       {rides.length === 0 ? (
         <p>No rides booked yet.</p>
       ) : (
+        <div style={{ overflowX: "auto" }}>
         <table
           style={{
             width: "100%",
@@ -168,6 +169,7 @@ function AdminDashboard() {
             ))}
           </tbody>
         </table>
+        </div>
       )}
 
       {/* Users Section */}
@@ -175,6 +177,7 @@ function AdminDashboard() {
       {users.length === 0 ? (
         <p>No users registered yet.</p>
       ) : (
+        <div style={{ overflowX: "auto" }}>
         <table
           style={{
             width: "100%",
@@ -198,6 +201,7 @@ function AdminDashboard() {
             ))}
           </tbody>
         </table>
+        </div>
       )}
     </div>
   );

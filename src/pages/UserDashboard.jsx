@@ -71,10 +71,10 @@ function UserDashboard() {
           </a>
         </div>
       ) : (
+        <div style={{ marginTop: "2rem", overflowX: "auto" }}>
         <table
           style={{
             width: "100%",
-            marginTop: "2rem",
             borderCollapse: "collapse",
             background: "#fff",
             boxShadow: "0 0 10px rgba(0,0,0,0.1)",
@@ -145,6 +145,7 @@ function UserDashboard() {
             ))}
           </tbody>
         </table>
+        </div>
       )}
     </div>
   );
