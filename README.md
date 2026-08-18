@@ -113,7 +113,7 @@ Desktop: 1200px+         (Side-by-side layout)
 
 ## Project Structure
 ```
-frontend-capstone/
+atlas-taxi-frontend/
 ├── src/
 │   ├── components/
 │   │   └── PrivateRoute.jsx
@@ -157,8 +157,8 @@ frontend-capstone/
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/alikirat/frontend-capstone
-cd frontend-capstone
+git clone https://github.com/alikirat/atlas-taxi-frontend
+cd atlas-taxi-frontend
 ```
 
 2. **Install dependencies**
@@ -315,7 +315,7 @@ See [docs/SECURITY.md](docs/SECURITY.md) for information about:
 
 ## Related Repository
 
-**Backend API:** [https://github.com/alikirat/backend-capstone](https://github.com/alikirat/backend-capstone)
+**Backend API:** [https://github.com/alikirat/atlas-taxi-backend](https://github.com/alikirat/atlas-taxi-backend)
 
 ---
 
