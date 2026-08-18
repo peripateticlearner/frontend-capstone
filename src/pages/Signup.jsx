@@ -71,7 +71,7 @@ const handleSubmit = async (e) => {
           <Link to="/login" style={{ color: "#007bff", fontWeight: "bold", textDecoration: "underline" }}>
             Login page
           </Link>{" "}
-          has a one-click demo rider account you can use instead.
+          has a one-click demo rider account ready to go.
         </p>
       </div>
 
