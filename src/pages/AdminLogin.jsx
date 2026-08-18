@@ -63,7 +63,7 @@ function AdminLogin() {
       <div className={styles.demoBox}>
         <p className={styles.demoLabel}>DEMO / TEST ACCOUNT ONLY</p>
         <p className={styles.demoText}>
-          This is a portfolio demo — the data behind this login is synthetic.
+          This is a portfolio demo. The data behind this login is synthetic.
         </p>
         <button
           type="button"

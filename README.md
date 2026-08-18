@@ -1,8 +1,8 @@
 # Atlas Taxi - Frontend
 
-**Full-Stack Development Capstone Project**
+**Full-Stack Development Project**
 
-React-based frontend for a ride-booking application with JWT authentication, protected routes, role-based dashboards, and mobile-first responsive design.
+Originally built as a full-stack capstone project, since expanded with production-style features like role-based auth, an admin dashboard, and ongoing polish. React-based frontend for a ride-booking application with JWT authentication, protected routes, role-based dashboards, and mobile-first responsive design.
 
 ![Atlas Taxi screenshot](docs/screenshot.png)
 
@@ -14,11 +14,11 @@ React-based frontend for a ride-booking application with JWT authentication, pro
 - **User:** `demo@test.com` / `demo1234`
 - **Admin:** `admin@test.com` / `admin1234`
 
-> 💡 **Tip:** Use the test accounts above to explore the app — the admin credentials are published right here, so anyone can view the full list of registered users. Please don't sign up with real personal information. Try it on your mobile device to see the responsive design in action.
+> 💡 **Tip:** Use the test accounts above to explore the app. The admin credentials are published right here, so anyone can view the full list of registered users. Please don't sign up with real personal information. Try it on your mobile device to see the responsive design in action.
 
 > ⚠️ **Hosting Note:** This demo uses free-tier hosting (Render). On the first request after 15 minutes of inactivity, the backend may take 30-60 seconds to wake up. If you see a connection message, please wait a moment and try again. This is a limitation of free hosting and would not occur in a production environment with paid hosting ($7/month eliminates cold starts). To demonstrate understanding of production considerations, UptimeRobot monitoring is used to prevent most cold starts during demo usage.
 
-> 📌 **Note:** This is a portfolio/demonstration project showcasing full-stack development skills. All data is for testing purposes only — please don't enter real personal information. Any non-demo data may be periodically removed.
+> 📌 **Note:** This is a portfolio/demonstration project showcasing full-stack development skills. All data is for testing purposes only. Please don't enter real personal information. Any non-demo data may be periodically removed.
 
 ## Features
 

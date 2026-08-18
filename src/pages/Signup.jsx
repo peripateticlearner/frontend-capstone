@@ -67,7 +67,7 @@ const handleSubmit = async (e) => {
       <div className={styles.demoBox}>
         <p className={styles.demoLabel}>JUST EXPLORING?</p>
         <p className={styles.demoText}>
-          No need to sign up — the{" "}
+          No need to sign up. The{" "}
           <Link to="/login" style={{ color: "#007bff", fontWeight: "bold", textDecoration: "underline" }}>
             Login page
           </Link>{" "}
