@@ -43,6 +43,11 @@
     color: #155724;
 }
 
+.statusPillCancelled {
+    background-color: #E2E3E5;
+    color: #383d41;
+}
+
 .statusPillOther {
     background-color: #F8D7DA;
     color: #721C24;

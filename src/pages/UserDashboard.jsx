@@ -5,6 +5,7 @@ function UserDashboard() {
   const [rides, setRides] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [cancellingId, setCancellingId] = useState(null);
 
   const firstName = localStorage.getItem("userFirstName");
 
@@ -47,6 +48,28 @@ function UserDashboard() {
 
     fetchUserRides();
   }, []);
+
+  const handleCancel = async (rideId) => {
+    if (!window.confirm("Cancel this ride?")) return;
+
+    const token = localStorage.getItem("token");
+    setCancellingId(rideId);
+
+    try {
+      const response = await axios.delete(`/api/rides/${rideId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      setRides((prev) =>
+        prev.map((ride) => (ride._id === rideId ? response.data.ride : ride))
+      );
+    } catch (err) {
+      console.error("Error cancelling ride:", err);
+      setError("Failed to cancel the ride. Please try again.");
+    } finally {
+      setCancellingId(null);
+    }
+  };
 
   if (loading) {
     return (
@@ -96,6 +119,9 @@ function UserDashboard() {
               <th style={{ padding: "0.75rem", border: "1px solid #ddd", textAlign: "left" }}>
                 Status
               </th>
+              <th style={{ padding: "0.75rem", border: "1px solid #ddd", textAlign: "left" }}>
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -125,6 +151,8 @@ function UserDashboard() {
                           ? "#CCE5FF"
                           : ride.status === "Completed"
                           ? "#D4EDDA"
+                          : ride.status === "Cancelled"
+                          ? "#E2E3E5"
                           : "#F8D7DA",
                       color:
                         ride.status === "Scheduled"
@@ -133,12 +161,33 @@ function UserDashboard() {
                           ? "#004085"
                           : ride.status === "Completed"
                           ? "#155724"
+                          : ride.status === "Cancelled"
+                          ? "#383d41"
                           : "#721C24",
                       fontWeight: "bold",
                     }}
                   >
                     {ride.status}
                   </span>
+                </td>
+                <td style={{ padding: "0.75rem", border: "1px solid #ddd" }}>
+                  {ride.status === "Scheduled" && (
+                    <button
+                      onClick={() => handleCancel(ride._id)}
+                      disabled={cancellingId === ride._id}
+                      style={{
+                        padding: "0.4rem 0.8rem",
+                        border: "none",
+                        borderRadius: "4px",
+                        backgroundColor: "#dc3545",
+                        color: "#fff",
+                        cursor: cancellingId === ride._id ? "not-allowed" : "pointer",
+                        opacity: cancellingId === ride._id ? 0.6 : 1,
+                      }}
+                    >
+                      {cancellingId === ride._id ? "Cancelling..." : "Cancel"}
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}

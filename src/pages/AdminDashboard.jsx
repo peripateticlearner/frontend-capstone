@@ -54,6 +54,8 @@ function AdminDashboard() {
         return styles.statusPillInProgress;
       case "Completed":
         return styles.statusPillCompleted;
+      case "Cancelled":
+        return styles.statusPillCancelled;
       default:
         return styles.statusPillOther;
     }
@@ -161,12 +163,14 @@ function AdminDashboard() {
                   </span>
                 </td>
                 <td className={styles.cell}>
-                  <button
-                    className={`${styles.button} ${styles[`button${ride.status.replace(" ", "")}`]}`}
-                    onClick={() => toggleStatus(ride._id, ride.status)}
-                  >
-                    {getStatusButtonText(ride.status)}
-                  </button>
+                  {ride.status !== "Cancelled" && (
+                    <button
+                      className={`${styles.button} ${styles[`button${ride.status.replace(" ", "")}`]}`}
+                      onClick={() => toggleStatus(ride._id, ride.status)}
+                    >
+                      {getStatusButtonText(ride.status)}
+                    </button>
+                  )}
                   <button
                     className={styles.deleteButton}
                     onClick={() => handleDelete(ride._id)}
