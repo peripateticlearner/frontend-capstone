@@ -9,10 +9,12 @@ function AdminDashboard() {
 
   // Get token from localStorage
   const token = localStorage.getItem("token");
+  let tokenPayload = null;
+  try { tokenPayload = token ? JSON.parse(atob(token.split(".")[1])) : null; } catch (e) { /* invalid token */ }
 
   useEffect(() => {
-    if (!token) {
-      setError("Not authenticated. Please login.");
+    if (!token || tokenPayload?.role !== "admin") {
+      setError("Not authenticated or insufficient privileges.");
       return;
     }
 
